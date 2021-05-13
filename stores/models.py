@@ -28,19 +28,33 @@ class Store(CustomModel):
 
 
 class StoreIngredients(CustomModel):
+    class Meta:
+        verbose_name = 'store ingredient'
+        verbose_name_plural = 'store ingredients'
+
     # TABLE COLUMNS WILL BE: id, store_id, ingredient_id, stock, price, created_at, updated_at
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='ingredients')
     stock = models.IntegerField(null=False, default=0)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
 
+    def __str__(self):
+        return '[%s] %s' % (self.store.name, self.ingredient.name)
+
 
 class Pizza(CustomModel):
+    class Meta:
+        verbose_name = 'pizza'
+        verbose_name_plural = 'pizza'
+
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='pizza')
     name = models.CharField(max_length=255)
     image = models.ImageField(upload_to='pizza')
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     ingredients = models.ManyToManyField(StoreIngredients, through='PizzaIngredients', related_name='pizza')
+
+    def __str__(self):
+        return self.name
 
 
 class PizzaIngredients(CustomModel):

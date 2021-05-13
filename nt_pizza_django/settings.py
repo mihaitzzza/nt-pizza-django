@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'payments.apps.PaymentsConfig',
+    'orders.apps.OrdersConfig',
     'stores.apps.StoresConfig',
     'fontawesome-free',
     'users.apps.UsersConfig',
@@ -194,3 +196,8 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
+
+STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+
+LOGIN_URL = 'users:account:login'

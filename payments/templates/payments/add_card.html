@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'payments/cardElement.css' %}" />
+{% endblock %}
+
+{% block script %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'payments/cardElement.js' %}" stripeKey="{{ stripe_key }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="form-wrapper">
+    <form action="{% url 'payments:add_card' %}" method="post" id="payment-form">
+        {% csrf_token %}
+        <div class="form-row">
+            <label for="card-element">
+                Credit or debit card
+            </label>
+            <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+            </div>
+            <!-- Used to display form errors. -->
+            <div id="card-errors" role="alert"></div>
+        </div>
+        <button>Add card</button>
+    </form>
+</div>
+{% endblock %}

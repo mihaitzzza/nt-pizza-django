@@ -1,0 +1,17 @@
+.form-wrapper {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.form-wrapper .form-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-wrapper .form-row label {
+    margin-bottom: 20px;
+}
+
+.form-wrapper button {
+    margin-top: 20px;
+}

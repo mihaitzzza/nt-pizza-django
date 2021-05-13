@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if cards %}
+        <ul>
+            {% for card in cards %}
+                <li>
+                    <div><strong>Brand: </strong> {{ card.brand }}</div>
+                    <div><strong>Number: </strong> **** **** **** {{ card.last4 }}</div>
+                    <div><strong>Expires on: </strong> {{ card.exp_month }}/{{ card.exp_year }}</div>
+                    <form method="post" action="{% url 'payments:remove_card' card.id %}">
+                        {% csrf_token %}
+                        <input type="submit" value="Remove" />
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No cards available. You can add a card <a href="{% url 'payments:add_card' %}">here</a>.</p>
+    {% endif %}
+{% endblock %}
