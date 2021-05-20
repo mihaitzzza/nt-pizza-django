@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load cart %}
+
+{% block content %}
+    {% if cards %}
+        <form method="post" action="{% url 'orders:pay' %}">
+            {% csrf_token %}
+            <p>You're about to order something worth {{ request.session.cart | products_or_price:'price' }} RON</p>
+            <p>Please select a payment method:</p>
+            <ul>
+                {% for card in cards %}
+                    <li>
+                        <input name="card_id" type="radio" value="{{ card.id }}" />
+                        <p>**** **** **** {{ card.last4 }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+            <input type="submit" value="Buy now!" />
+        </form>
+        <p>Or create another payment method <a href="{% url 'payments:add_card' %}">here</a></p>
+    {% else %}
+        <p>No cards available. You can add a card <a href="{% url 'payments:add_card' %}">here</a>.</p>
+    {% endif %}
+{% endblock %}

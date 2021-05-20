@@ -8,7 +8,7 @@ register = template.Library()
 def get_products_number_or_price(cart_dict, type_=None):
     if type_ == 'price':
         pizza_list = Pizza.objects.filter(id__in=cart_dict.keys())
-        return '%.2f' % sum([pizza.price for pizza in pizza_list])
+        return '%.2f' % sum([pizza.price * cart_dict[str(pizza.id)] for pizza in pizza_list])
 
     return sum([int(cart_value) for cart_value in cart_dict.values()])
 
@@ -18,7 +18,7 @@ def get_cart_data(context):
     cart_dict = context.request.session.get('cart', {})
     pizza_list = Pizza.objects.filter(id__in=cart_dict.keys())
     products_number = sum([int(cart_value) for cart_value in cart_dict.values()])
-    total_price = '%.2f RON' % sum([pizza.price for pizza in pizza_list])
+    total_price = '%.2f RON' % sum([pizza.price * cart_dict[str(pizza.id)] for pizza in pizza_list])
 
     return {
         'products': products_number,

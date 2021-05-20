@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'fontawesome-free',
     'users.apps.UsersConfig',
     'social_django',
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -201,3 +202,5 @@ STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
 LOGIN_URL = 'users:account:login'
+
+SITE_ID = 1

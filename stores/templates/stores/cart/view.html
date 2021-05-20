@@ -34,10 +34,7 @@
     </ul>
     {% with pizza_list_length=pizza_list|length %}
         {% if pizza_list_length %}
-            <form>
-                {% csrf_token %}
-                <input type="submit" value="Order" />
-            </form>
+            <a href="{% url 'orders:order' %}">Order</a>
         {% endif %}
     {% endwith %}
 {% endblock %}

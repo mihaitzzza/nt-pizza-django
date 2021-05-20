@@ -29,6 +29,10 @@ class Cart:
         cart_model.save()
         self._session['cart'] = self._data
 
+    def delete(self):
+        del self._session['cart']
+        CartModel.objects.get(user=self._user).delete()
+
     @staticmethod
     def load(user, session):
         try:
