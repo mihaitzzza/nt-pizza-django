@@ -1,15 +1,27 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
-    <ul>
-        {% for store in store_list %}
-            <li>
-                <a href="{% url 'stores:details' store.id %}">
-                    <img src="{{ store.logo.url }}" width="100" />
-                    <div>{{ store.name }}</div>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+    <button id="btn">Load data!</button>
+{% endblock %}
+
+{% block script %}
+    <script>
+        console.log('use JS to get data from server and display them', axios);
+        document.addEventListener(document.getElementById('btn'), function() {
+            console.log('on button click.');
+            axios.get('http://localhost:8000/api/stores').then(function(response) {
+                console.log('response', response);
+                var stores = response.data;
+
+                var ul = document.createElement('ul');
+                for (var i = 0; i < stores.length; i++) {
+                    console.log('stores[i]', stores[i]);
+                    var li = document.createElement('li');
+                    li.innerHTML = stores[i].name;
+                    ul.append(li);
+                }
+                document.body.append(ul);
+            });
+        });
+    </script>
 {% endblock %}

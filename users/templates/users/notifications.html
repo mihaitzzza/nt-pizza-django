@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if notifications %}
+        <ul>
+            {% for notification in notifications %}
+                <li style="display: flex; {%if notification.seen%}background-color: cyan;{%else%}background-color: yellow;{%endif%}">
+                    <img src="{{ notification.content_object.image_url }}" height="50" />
+                    <div>
+                        <p>{{ notification.message }}</p>
+                        <a href="{{ notification.link }}">View details</a>
+                        <form method="post" action="{% url 'users:account:notifications_mark_as_seen' notification.id %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Mark as seen" />
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No unseen notifications for you.</p>
+    {% endif %}
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from nt_pizza_django.models import CustomModel
+from users.models import AuthUser
 
 AuthUserModel = get_user_model()
 
@@ -19,6 +20,10 @@ class Store(CustomModel):
     delivery_fee = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     profit_fee = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     ingredients = models.ManyToManyField(Ingredient, through='StoreIngredients', related_name='stores')
+
+    @property
+    def image_url(self):
+        return self.logo.url
 
     def __str__(self):
         return self.name
@@ -52,6 +57,10 @@ class Pizza(CustomModel):
     image = models.ImageField(upload_to='pizza')
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     ingredients = models.ManyToManyField(StoreIngredients, through='PizzaIngredients', related_name='pizza')
+
+    @property
+    def image_url(self):
+        return self.image.url
 
     def __str__(self):
         return self.name

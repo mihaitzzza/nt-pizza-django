@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'stores.apps.StoresConfig',
     'fontawesome-free',
     'users.apps.UsersConfig',
+    'rest_framework',
     'social_django',
     'django.contrib.sites',
     'django.contrib.admin',
@@ -204,3 +205,9 @@ STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 LOGIN_URL = 'users:account:login'
 
 SITE_ID = 1
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ]
+}
