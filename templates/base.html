@@ -40,12 +40,29 @@
                     <div class="overlay"></div>
                 </div>
             </div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <div class="content">
                 {% block content %}
                 {% endblock %}
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            (function() {
+                setTimeout(function() {
+                    var messages = document.querySelector('.messages');
+                    if (messages) {
+                        messages.parentNode.removeChild(messages);
+                    }
+                }, 3000);
+            })()
+        </script>
         {% block script %}
         {% endblock %}
     </body>

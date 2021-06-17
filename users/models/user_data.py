@@ -34,3 +34,6 @@ class Notification(CustomModel):
     message = models.CharField(max_length=255)
     link = models.CharField(max_length=255)
     seen = models.BooleanField(default=False)
+
+    def get_content_object_type(self):
+        return type(self.content_object)

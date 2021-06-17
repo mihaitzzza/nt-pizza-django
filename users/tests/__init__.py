@@ -1,0 +1,2 @@
+from users.tests.test_notifications import NotificationTestCase
+from users.tests.test_authentication import AuthenticationTestCase

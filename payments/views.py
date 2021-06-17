@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, Http404, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib import messages
 from payments.models import StripeCard
 from utils.cart import Cart
 
@@ -86,6 +87,8 @@ def process_payment(request):
     # Payment successful
     Cart(user=request.user, session=request.session).delete()
     # --- update stock or whatever.
+
+    messages.success(request, 'Payment succeeded')
 
     return redirect('/')
 
